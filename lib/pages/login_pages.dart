@@ -2,7 +2,8 @@ import 'package:agrisoul2/components/my_textfield.dart';
 import 'package:agrisoul2/components/squares_tile.dart';
 import 'package:flutter/material.dart';
 import 'home_page.dart';
-
+ // Make sure this path is correct
+//create the backend here
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
 
@@ -23,6 +24,14 @@ class LoginPage extends StatelessWidget {
       context,
       MaterialPageRoute(builder: (context) => const HomePage()),
     );
+  }
+
+  // **** CHANGE 1: THIS FUNCTION WAS ADDED ****
+  // Function to handle Google Sign-In
+  void signInWithGoogle() {
+    // For now, this print statement proves the button works.
+    // Later, you will add your real Firebase sign-in logic here.
+    print('Google button tapped!');
   }
 
   @override
@@ -202,14 +211,18 @@ class LoginPage extends StatelessWidget {
 
                         const SizedBox(height: 20),
 
+                        // **** CHANGE 2: THIS ROW WAS MODIFIED ****
                         // 🌍 Social Login
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            SquaresTile(imagePath: 'lib/images/gooogle.jpg'),
-                            SizedBox(width: 15),
-                            
-                            
+                          children: [
+                            InkWell(
+                              onTap: signInWithGoogle,
+                              borderRadius: BorderRadius.circular(16),
+                              child: const SquaresTile(
+                                  imagePath: 'lib/images/google.jpg'),
+                            ),
+                            const SizedBox(width: 15),
                           ],
                         ),
                       ],

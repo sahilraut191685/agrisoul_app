@@ -3,13 +3,8 @@ import 'package:flutter/material.dart';
 import 'setting.dart';
 // import the real account page
 import 'accountpage.dart';
-
-// Dummy Market Prices page
-class MarketPricesPage extends StatelessWidget {
-  const MarketPricesPage({super.key});
-  @override
-  Widget build(BuildContext context) => _dummyPage("📈 Market Prices Page");
-}
+// import the market price page
+import 'package:agrisoul2/pages/livemarket.dart'; // This is now correctly used
 
 // Dummy Weather page
 class WeatherPage extends StatelessWidget {
@@ -39,6 +34,7 @@ class VideosPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text("🎥 Video Tutorials"),
         backgroundColor: Colors.green.shade900,
+        foregroundColor: Colors.white,
       ),
       body: Container(
         color: Colors.green.shade50,
@@ -104,11 +100,19 @@ class VideosPage extends StatelessWidget {
 // Dummy page builder (for placeholder pages)
 Widget _dummyPage(String title) {
   return Scaffold(
-    appBar: AppBar(title: Text(title), backgroundColor: Colors.green.shade900),
+    appBar: AppBar(
+      title: Text(title),
+      backgroundColor: Colors.green.shade900,
+      foregroundColor: Colors.white,
+    ),
     body: Center(
-      child: Text(
-        title,
-        style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Text(
+          title,
+          textAlign: TextAlign.center,
+          style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        ),
       ),
     ),
   );
@@ -137,6 +141,7 @@ class _ExpenseTrackerState extends State<ExpenseTracker> {
     });
     _titleController.clear();
     _amountController.clear();
+    FocusScope.of(context).unfocus(); // Close keyboard
   }
 
   double get totalExpenses =>
@@ -212,7 +217,8 @@ class _ExpenseTrackerState extends State<ExpenseTracker> {
               ),
             ),
             const SizedBox(width: 10),
-            Expanded(
+            SizedBox(
+              width: 120, // Give amount field a specific width
               child: TextField(
                 controller: _amountController,
                 keyboardType: TextInputType.number,
@@ -227,22 +233,30 @@ class _ExpenseTrackerState extends State<ExpenseTracker> {
                 ),
               ),
             ),
-            const SizedBox(width: 10),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green.shade700,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 18,
-                  vertical: 15,
-                ),
-              ),
-              onPressed: _addExpense,
-              child: const Icon(Icons.add),
-            ),
           ],
+        ),
+        const SizedBox(height: 10),
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.green.shade700,
+            foregroundColor: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+            ),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 18,
+              vertical: 15,
+            ),
+          ),
+          onPressed: _addExpense,
+          child: const Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.add),
+              SizedBox(width: 8),
+              Text("Add Expense")
+            ],
+          ),
         ),
         const SizedBox(height: 20),
         Expanded(
@@ -349,12 +363,14 @@ class HomePage extends StatelessWidget {
                         "Account",
                         const AccountPage(),
                       ),
+                      // **** THIS IS THE CORRECTED PART ****
                       _agriFeatureBox(
                         context,
                         Icons.show_chart,
                         "Market Prices",
-                        const MarketPricesPage(),
+                        MarketPricePage(), // Correctly navigates to the real page
                       ),
+                      // *************************************
                       _agriFeatureBox(
                         context,
                         Icons.cloud,
@@ -365,8 +381,9 @@ class HomePage extends StatelessWidget {
                         context,
                         Icons.attach_money,
                         "Expense Tracker",
-                        const Scaffold(
-                          body: Padding(
+                        Scaffold(
+                          appBar: AppBar(title: const Text("Expense Tracker"), backgroundColor: Colors.green.shade800, foregroundColor: Colors.white,),
+                          body: const Padding(
                             padding: EdgeInsets.all(16.0),
                             child: ExpenseTracker(),
                           ),
@@ -383,10 +400,11 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(bottom: 25),
+                padding: const EdgeInsets.only(bottom: 25, top: 10),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.brown.shade50,
+                    backgroundColor: Colors.white,
+                    foregroundColor: Colors.green,
                     padding: const EdgeInsets.symmetric(
                       horizontal: 45,
                       vertical: 15,
@@ -403,7 +421,6 @@ class HomePage extends StatelessWidget {
                     "⬅ Back to Login",
                     style: TextStyle(
                       fontSize: 18,
-                      color: Colors.green,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
