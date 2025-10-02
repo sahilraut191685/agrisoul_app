@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "56259142843",
+    "project_id": "agrisoul-5a738",
+    "storage_bucket": "agrisoul-5a738.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:56259142843:android:b4f23dc9abca7810d1f59e",
+        "android_client_info": {
+          "package_name": "com.example.agrisoul2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_LCsw-Hb3WEYXQ7LNhkbDsaFk7lerwUI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
