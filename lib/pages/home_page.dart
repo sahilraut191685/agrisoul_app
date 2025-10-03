@@ -1,32 +1,72 @@
 import 'package:flutter/material.dart';
+// ⭐️ 1. IMPORT THE URL LAUNCHER PACKAGE
+import 'package:url_launcher/url_launcher.dart';
+
 // import the real settings page
 import 'setting.dart';
 // import the real account page
 import 'accountpage.dart';
 // import the market price page
-import 'package:agrisoul2/pages/livemarket.dart'; // This is now correctly used
+import 'package:agrisoul2/pages/livemarket.dart';
+// import the real weather page
+import 'package:agrisoul2/pages/weatherpage.dart';
 
-// Dummy Weather page
-class WeatherPage extends StatelessWidget {
-  const WeatherPage({super.key});
-  @override
-  Widget build(BuildContext context) => _dummyPage(
-    "☁ Weather Forecasting is not available till now. Will fix in further update",
-  );
-}
 
-// VideosPage now contains the full video list
+// VideosPage now contains the full video list with URLs
 class VideosPage extends StatelessWidget {
   const VideosPage({super.key});
 
+  // ⭐️ 2. ADD A 'url' FIELD TO YOUR VIDEO DATA
   final List<Map<String, String>> videos = const [
-    {"title": "Planting Seeds 101", "thumbnail": "🌱", "duration": "10:23"},
-    {"title": "Fertilizer Guide", "thumbnail": "💚", "duration": "8:45"},
-    {"title": "Irrigation Techniques", "thumbnail": "💧", "duration": "12:10"},
-    {"title": "Pest Control Tips", "thumbnail": "🐛", "duration": "7:50"},
-    {"title": "Harvesting Methods", "thumbnail": "🌾", "duration": "15:00"},
-    {"title": "Soil Preparation Tips", "thumbnail": "🌿", "duration": "9:30"},
+    {
+      "title": "Planting Seeds 101",
+      "thumbnail": "🌱",
+      "duration": "10:23",
+      "url": "https://www.youtube.com/watch?v=FW_bw9jdrlQ"
+    },
+    {
+      "title": "Fertilizer Guide",
+      "thumbnail": "💚",
+      "duration": "8:45",
+      "url": "https://www.youtube.com/watch?v=-xkz5pSRA1M"
+    },
+    {
+      "title": "Irrigation Techniques",
+      "thumbnail": "💧",
+      "duration": "12:10",
+      "url": "https://www.youtube.com/watch?v=Vof1GmL2DAQ"
+    },
+    {
+      "title": "Pest Control Tips",
+      "thumbnail": "🐛",
+      "duration": "7:50",
+      "url": "https://www.youtube.com/watch?v=OoShJ76U8II"
+    },
+    {
+      "title": "Harvesting Methods",
+      "thumbnail": "🌾",
+      "duration": "15:00",
+      "url": "https://www.youtube.com/watch?v=YbAcJ1SH0QY"
+    },
+    {
+      "title": "Soil Preparation Tips",
+      "thumbnail": "🌿",
+      "duration": "9:30",
+      "url": "https://www.youtube.com/watch?v=r9p8ilq0sOQ"
+    },
   ];
+
+  // ⭐️ 3. ADD THE FUNCTION TO LAUNCH URLS
+  // This function will open the link in an external app like YouTube or a browser.
+  Future<void> _launchUrl(BuildContext context, String urlString) async {
+    final Uri url = Uri.parse(urlString);
+    if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+      // Show an error message if the URL can't be launched
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Error: Could not open the video.')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,10 +123,10 @@ class VideosPage extends StatelessWidget {
                   ),
                   child: const Icon(Icons.play_arrow, color: Colors.white),
                 ),
+                // ⭐️ 4. CALL THE FUNCTION WHEN THE TILE IS TAPPED
                 onTap: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text("Playing ${video["title"]}")),
-                  );
+                  // Pass the context and the video's URL to the function
+                  _launchUrl(context, video["url"]!);
                 },
               ),
             );
@@ -97,26 +137,7 @@ class VideosPage extends StatelessWidget {
   }
 }
 
-// Dummy page builder (for placeholder pages)
-Widget _dummyPage(String title) {
-  return Scaffold(
-    appBar: AppBar(
-      title: Text(title),
-      backgroundColor: Colors.green.shade900,
-      foregroundColor: Colors.white,
-    ),
-    body: Center(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Text(
-          title,
-          textAlign: TextAlign.center,
-          style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-        ),
-      ),
-    ),
-  );
-}
+// (The rest of your code: ExpenseTracker and HomePage remains the same)
 
 // Expense Tracker widget
 class ExpenseTracker extends StatefulWidget {
@@ -363,19 +384,17 @@ class HomePage extends StatelessWidget {
                         "Account",
                         const AccountPage(),
                       ),
-                      // **** THIS IS THE CORRECTED PART ****
                       _agriFeatureBox(
                         context,
                         Icons.show_chart,
                         "Market Prices",
                         MarketPricePage(), // Correctly navigates to the real page
                       ),
-                      // *************************************
                       _agriFeatureBox(
                         context,
                         Icons.cloud,
                         "Weather",
-                        const WeatherPage(),
+                        const WeatherPage(), // Correctly navigates to your real weather page
                       ),
                       _agriFeatureBox(
                         context,
