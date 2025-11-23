@@ -1,16 +1,28 @@
-# agrisoul2
+# Agrisoul — Frontend
 
-A new Flutter project.
+> **⚠️ Status: Project is still under development. Not fully completed yet.**
 
-## Getting Started
+A modern and responsive frontend for **Agrisoul**, a platform designed to help farmers, buyers, and agriculture service providers connect easily.
 
-This project is a starting point for a Flutter application.
+---
 
-A few resources to get you started if this is your first Flutter project:
+## 🚀 Features
+- Farmer dashboard
+- Marketplace for crops & products
+- Knowledge hub (articles, guides, FAQs)
+- Weather & price alerts
+- Fully responsive UI
+- Fast performance with modern frontend tools
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+---
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 🧰 Tech Stack
+- React + Vite
+- Tailwind CSS
+- React Router
+- Firebase / REST API integration
+- React Hook Form + Zod (optional)
+
+---
+
+## 📦 Folder Structure
