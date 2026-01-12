@@ -17,12 +17,11 @@ A modern and responsive frontend for **Agrisoul**, a platform designed to help f
 ---
 
 ## 🧰 Tech Stack
-- React + Vite
-- Tailwind CSS
-- React Router
+- Flutter/DART
 - Firebase / REST API integration
 - React Hook Form + Zod (optional)
 
 ---
 
 ## 📦 Folder Structure
+--We will notify soon
